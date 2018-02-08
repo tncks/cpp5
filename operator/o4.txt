@@ -1,0 +1,20 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+template<typename FUNC>
+void TEST(FUNC func)
+{
+	func();
+}
+
+int main()
+{
+	auto func = [] {cout << "hello world!" << endl; };
+
+	TEST(func);
+
+    return 0;
+}
+

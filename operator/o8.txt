@@ -1,0 +1,24 @@
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+#include <string>
+#include <functional>
+
+using namespace std;
+
+function<void()> f(int n)
+{
+	string str("D.va");
+	return [=]() {cout << "Hello " << str << n << endl; };
+}
+
+int main()
+{
+	auto func = f(5);
+	func();
+	f(6)();
+
+
+    return 0;
+}
+

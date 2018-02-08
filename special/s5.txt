@@ -1,0 +1,30 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+class New {
+public:
+	void *operator new(size_t size)
+	{
+		cout << "Call operator new()!" << endl;
+
+		return new char[size];
+	}
+	void operator delete(void *pData)
+	{
+		cout << "Call operator delete()!" << endl;
+
+		delete[] pData;
+	}
+};
+
+int main() {
+	New *ptr = new New;
+
+	cout << "hello!" << endl;
+
+	delete ptr;
+
+	return 0;
+}

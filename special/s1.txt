@@ -1,0 +1,124 @@
+#include "stdafx.h"
+#include <iostream>
+
+class Array
+{
+private:
+	int *pArr = 0;
+	unsigned int count = 0;
+
+public:
+	Array();
+	Array(unsigned int Count);
+	Array(int *data, unsigned int Count);
+	//Array(const Array &copy);
+	~Array();
+
+	int Get(unsigned int index) const;
+	void Set(unsigned int index, int value);
+
+	void Resize(unsigned int Count);
+
+public:
+	const unsigned int &Count = count;
+};
+
+int main()
+{
+	using namespace std;
+
+	Array myArr1 = 10;
+	Array myArr2;
+
+	for (int i = 0; i < 10; i++)
+	{
+		myArr1.Set(i, i + 1);
+		cout << myArr1.Get(i) << " ";
+	}
+
+	cout << endl << endl;
+
+
+	myArr2.Resize(20);
+	for (int i = 0; i < 21; i++)
+	{
+		myArr2.Set(i, i * 2);
+		cout << myArr2.Get(i) << " ";
+	}
+
+	cout << endl << endl;
+
+	return 0;
+}
+
+Array::Array()
+{
+
+}
+
+Array::Array(unsigned int Count)
+	: count(Count)
+{
+	pArr = new int[count];
+}
+
+Array::Array(int *data, unsigned int Count)
+	: count(Count)
+{
+	pArr = new int[count];
+
+	for (unsigned int i = 0; i < count; i++)
+	{
+		pArr[i] = data[i];
+	}
+}
+
+Array::~Array()
+{
+	if (pArr)
+	{
+		delete[] pArr;
+	}
+}
+
+int Array::Get(unsigned int index) const
+{
+	if (index >= count)
+	{
+		return 0;
+	}
+
+	return pArr[index];
+}
+
+void Array::Set(unsigned int index, int value)
+{
+	if (index >= count)
+	{
+		return;
+	}
+
+	pArr[index] = value;
+
+	return;
+}
+
+void Array::Resize(unsigned int Count)
+{
+	int *pArr = 0;
+	unsigned int small = 0;
+
+	pArr = new int[Count];
+
+	small = Count < count ? Count : count;
+	for (unsigned int i = 0; i < small; i++)
+	{
+		pArr[i] = this->pArr[i];
+	}
+
+	delete[] this->pArr;
+	this->pArr = pArr;
+	count = Count;
+
+	return;
+}

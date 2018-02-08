@@ -1,0 +1,29 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+auto get_1()
+{
+	return 1;
+}
+
+auto get_tf(int x)
+{
+	if (x >= 100)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+int main()
+{
+	auto x = get_1();
+	cout << get_tf(x) << endl;
+
+	return 0;
+}

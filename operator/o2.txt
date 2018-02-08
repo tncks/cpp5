@@ -1,0 +1,65 @@
+#include "stdafx.h"
+#include <iostream>
+
+class Complex
+{
+private:
+	double real;
+	double imaginary;
+public:
+	Complex(double Real, double Imaginary);
+
+	void operator+=(const Complex &com);
+
+	Complex operator+(const Complex &com);
+
+	void operator=(const Complex &com);
+
+public:
+	const double &Real = real;
+	const double &Imaginary = imaginary;
+};
+
+int main()
+{
+	using namespace std;
+
+	Complex com1(10.0, 1.0);
+	Complex com2(25.0, 10.0);
+	Complex comAdd(0,0);
+
+	comAdd=com1+com2;
+
+	cout << comAdd.Real << " + " << comAdd.Imaginary << "i" << endl;
+
+    return 0;
+}
+
+Complex::Complex(double Real, double Imaginary)
+	:real(Real), imaginary(Imaginary)
+{
+
+}
+
+void Complex::operator+=(const Complex &com) {
+	real += com.Real;
+	imaginary += com.Imaginary;
+
+	return;
+}
+
+Complex Complex::operator+(const Complex &com)
+{
+	Complex temp(0.0,0.0);
+	temp.real = this->real + com.Real;
+	temp.imaginary = this->imaginary + com.imaginary;
+	return temp;
+}
+
+void Complex::operator=(const Complex &com)
+{
+	real = com.real;
+	imaginary = com.imaginary;
+
+	return;
+}

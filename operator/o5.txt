@@ -1,0 +1,14 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	auto func = [](int n) {cout << "Number : " << n << endl; };
+
+	func(333);
+
+    return 0;
+}
+

@@ -1,0 +1,72 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+class MyClass {
+public:
+	void SimpleFunc() {
+		cout << "SimpleFunc!" << endl;
+
+		return;
+	}
+};
+
+class SmartPtr {
+private:
+	MyClass *ptr;
+
+public:
+	SmartPtr(MyClass *ptr);
+	~SmartPtr();
+
+	MyClass &operator*();
+	const MyClass &operator*() const;
+	//MyClass &operator[](int index); //포인터 배열
+	//const MyClass &operator[](int index) const;
+
+	MyClass *operator->();
+	const MyClass *operator->() const;
+};
+
+int main()
+{
+	SmartPtr myclass = new MyClass;
+
+	myclass->SimpleFunc();
+
+	return 0;
+}
+
+SmartPtr::SmartPtr(MyClass *ptr)
+	: ptr(ptr)
+{
+
+}
+SmartPtr::~SmartPtr()
+{
+	if (ptr)
+	{
+		cout << "deleted!" << endl;
+		delete ptr;
+		ptr = 0;
+	}
+}
+
+MyClass &SmartPtr::operator*()
+{
+	return *ptr;
+}
+
+const MyClass &SmartPtr::operator*() const
+{
+	return *ptr;
+}
+
+MyClass *SmartPtr::operator->() {
+	return ptr;
+}
+
+const MyClass *SmartPtr::operator->() const {
+	return ptr;
+}

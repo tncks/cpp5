@@ -1,0 +1,17 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <random>
+
+using namespace std;
+
+int main()
+{
+	mt19937 mt_rand;
+	for (int i = 0; i < 7; i++)
+	{
+		cout << mt_rand() << endl;
+	}
+
+	return 0;
+}

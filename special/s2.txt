@@ -1,0 +1,152 @@
+#include "stdafx.h"
+#include <iostream>
+
+class Array
+{
+private:
+	int *pArr = 0;
+	unsigned int count = 0;
+
+public:
+	Array();
+	Array(unsigned int Count);
+	Array(int *data, unsigned int Count);
+	Array(const Array &copy);
+	~Array();
+
+	int &operator[](unsigned int index);
+	const int &operator[](unsigned int index) const; // 상수 한정자 오버로딩
+
+	//int &Get(unsigned int index);
+	//const int &Get(unsigned int index) const; // 상수 한정자 오버로딩
+
+	//int Get(unsigned int index) const;
+	//void Set(unsigned int index, int value);
+
+	void Resize(unsigned int Count);
+
+public:
+	const unsigned int &Count = count;
+};
+
+int main()
+{
+	using namespace std;
+
+	Array myArr1 = 10;
+
+	for (int i = 0; i < 10; i++)
+	{
+		myArr1[i] = i + 1;
+		cout << myArr1[i] << " ";
+	}
+
+	cout << endl << endl;
+
+	const Array myArr2 = myArr1;
+	for (int i = 0; i < 10; i++)
+	{
+		cout << myArr2[i] << " ";
+	}
+
+	cout << endl << endl;
+
+	return 0;
+}
+
+Array::Array()
+{
+
+}
+
+Array::Array(unsigned int Count)
+	: count(Count)
+{
+	pArr = new int[count];
+}
+
+Array::Array(int *data, unsigned int Count)
+	: count(Count)
+{
+	pArr = new int[count];
+
+	for (unsigned int i = 0; i < count; i++)
+	{
+		pArr[i] = data[i];
+	}
+}
+
+Array::Array(const Array &copy)
+	: count(copy.count)
+{
+	pArr = new int[count];
+
+	for (unsigned int i = 0; i < count; i++)
+	{
+		pArr[i] = copy.pArr[i];
+	}
+}
+
+Array::~Array()
+{
+	if (pArr)
+	{
+		delete[] pArr;
+	}
+}
+
+
+int &Array::operator[](unsigned int index)
+{
+	return pArr[index];
+}
+
+const int &Array::operator[](unsigned int index) const
+{
+	return pArr[index];
+}
+
+/*
+int Array::Get(unsigned int index) const
+{
+	if (index >= count)
+	{
+		return 0;
+	}
+
+	return pArr[index];
+}
+
+void Array::Set(unsigned int index, int value)
+{
+	if (index >= count)
+	{
+		return;
+	}
+
+	pArr[index] = value;
+
+	return;
+}
+*/
+
+
+void Array::Resize(unsigned int Count)
+{
+	int *pArr = 0;
+	unsigned int small = 0;
+
+	pArr = new int[Count];
+
+	small = Count < count ? Count : count;
+	for (unsigned int i = 0; i < small; i++)
+	{
+		pArr[i] = this->pArr[i];
+	}
+
+	delete[] this->pArr;
+	this->pArr = pArr;
+	count = Count;
+
+	return;
+}

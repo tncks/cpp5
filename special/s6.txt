@@ -1,0 +1,54 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+void *operator new[](size_t size) {
+	unsigned char *pRaw = 0;
+	unsigned int *pSize = 0;
+
+	pRaw = reinterpret_cast<unsigned char*>(malloc(size + 6));
+
+	pRaw[0] = -1;
+	pRaw[size + 5] = -1;
+
+	pSize = reinterpret_cast<unsigned int*>(pRaw + 1);
+
+	*pSize = size;
+
+	return pRaw + 5;
+
+}
+
+void operator delete[](void *pMem)
+{
+	unsigned char *pRaw = 0;
+	unsigned int size = 0;
+
+	pRaw = reinterpret_cast<unsigned char *>(pMem) - 5;
+
+	size = *reinterpret_cast<unsigned int *>(pRaw + 1);
+
+	if (pRaw[0] != -1 || pRaw[size + 5] != 0)
+	{
+		cout << "Memory access denied!" << endl
+			<< "from 0x" << pMem << endl;
+	}
+
+	free(pRaw);
+
+	return;
+}
+
+int main() {
+	
+	char *ptr = 0;
+
+	ptr = new char[100];
+
+	ptr[100] = 100;
+
+	delete[] ptr;
+
+	return 0;
+}

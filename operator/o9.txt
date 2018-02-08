@@ -1,0 +1,19 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int x = 100;
+
+	[&]()
+	{
+		cout << x << endl;
+		x = 200;
+	}();
+
+	cout << x << endl;
+
+	return 0;
+}

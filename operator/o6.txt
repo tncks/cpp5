@@ -1,0 +1,20 @@
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	auto func1 = [] {return 3.14; };
+	auto func2 = [](float f) {return f;  };
+	auto func3 = []()->float {return 3.14; };
+
+	float f1 = func1();
+	float f2 = func2(3.14f);
+	float f3 = func3();
+
+	cout << f1 << endl << f2  << endl << f3 << endl;
+
+    return 0;
+}
+
